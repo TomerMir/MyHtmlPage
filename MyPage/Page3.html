@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, th, td {
+        border: 1px solid black;
+        }
+
+
+        body {
+            font-family: "Lato", sans-serif; /*עיצוב הגופן*/
+        }
+
+
+        .sidenav { /*עיצוב התפריט הנפתח*/
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+            .sidenav a { /*עיצוב מה שיהיה בתוך התפריט*/
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+                transition: 0.3s;
+            }
+
+                .sidenav a:hover { /*אנימציה כאשר העכבר עומד על אחד מהקישורים*/
+                    color: #f1f1f1;
+                }
+
+            .sidenav .closebtn { /*סטייל של האיקס*/
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+
+        #main {
+            transition: margin-left .5s; /*מה שקורה לכל שאר העמוד בעת פתיחת התפריט*/
+            padding: 16px;
+        }
+    </style>
+</head>
+<body style="direction:rtl; background-color:aquamarine;">
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="OpenPage.html">קצת עלי</a>
+        <a href="Page2.html">הנושא שבחרתי ומדוע</a>
+        <a href="LoginPage.html">כניסה</a>
+    </div>
+
+
+    <div id="main">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+        <h1 style="text-align:center; display:block; font-size: 50px; text-decoration-line:underline">טבלה על הנושא</h1>
+        <h2>אני בחרתי להציג את שיאי ה - 100 מטרים בריצה מכיוון שזה המקצה האהוב עלי בתחרויות </h2>
+        <table style="width:100%; height:100%">
+            <tr style="width:50%">
+                <th style="width:33%; font-size:30px">מקצה</th>
+                <th style="width:33%; font-size:30px">שיאי עולם בריצה</th>
+                <th style="width:33%; font-size:30px">שיאי ישראל בריצה</th>
+            </tr>
+            <tr>
+                <th style="font-size:55px">
+                    100m men
+                </th>
+                
+                <td style="text-align:center; font-size:20px">
+                    <a href ="https://he.wikipedia.org/wiki/%D7%99%D7%95%D7%A1%D7%99%D7%99%D7%9F_%D7%91%D7%95%D7%9C%D7%98"> יוסיין בולט - 9:58</a>
+                    <br>
+                    <img src="Resources/bolt.jpg">
+                </td>
+
+                <td style="text-align:center; font-size:20px">
+                    <a href ="https://www.ynet.co.il/articles/0,7340,L-4680783,00.html"> אלכסנדר פורחומובסקי - 10.2</a>
+                    <br>
+                    <img src="Resources/alex.jpg" width="300" height="200">
+                </td>
+            </tr>
+
+            <tr>
+                <th style="font-size:55px">
+                    100m woman
+                </th>
+
+                <td style="text-align:center; font-size:20px">
+                    <a href="https://he.wikipedia.org/wiki/%D7%A4%D7%9C%D7%95%D7%A8%D7%A0%D7%A1_%D7%92%D7%A8%D7%99%D7%A4%D7%99%D7%AA%27_%D7%92%27%D7%95%D7%99%D7%A0%D7%A8">פלורנס גריפית ג'וינר - 10.49</a>
+                    <br>
+                    <img src="Resources/fl.jpg">
+                </td>
+
+                <td style="text-align:center; font-size:20px">
+                    <a href="https://he.wikipedia.org/wiki/%D7%93%D7%99%D7%90%D7%A0%D7%94_%D7%95%D7%99%D7%A1%D7%9E%D7%9F">דיאנה ויסמן - 11.25</a>
+                    <br>
+                    <img src="Resources/diana.jpg" width="300" height="200">
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginRight = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginRight = "0";
+            document.body.style.backgroundColor = "aquamarine"
+        }
+    </script>
+
+</body>
+</html> 

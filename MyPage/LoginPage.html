@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    
+
     <style>
 
+
         body {
-            font-family: "Lato", sans-serif; /*עיצוב הגופן*/           
+            font-family: "Lato", sans-serif; /*עיצוב הגופן*/
         }
 
 
@@ -23,7 +24,7 @@
         }
 
             .sidenav a { /*עיצוב מה שיהיה בתוך התפריט*/
-                padding: 8px 8px 8px 32px; 
+                padding: 8px 8px 8px 32px;
                 text-decoration: none;
                 font-size: 25px;
                 color: #818181;
@@ -47,8 +48,34 @@
             transition: margin-left .5s; /*מה שקורה לכל שאר העמוד בעת פתיחת התפריט*/
             padding: 16px;
         }
-
     </style>
+    <script type="text/javascript">
+        function IsValid() {
+            document.getElementById("error").innerHTML = "";
+            var msg = 0;
+            var msg = 0;
+            if (document.getElementById("username").value == "") {
+                document.getElementById("error").innerHTML += " יש להכניס את שם המשתמש</br>";
+                document.getElementById("username").style.backgroundColor = "red";
+                msg++;
+            }
+            if (document.getElementById("password").value == "") {
+                document.getElementById("error").innerHTML += " יש להכניס את הסיסמא</br>";
+                document.getElementById("password").style.backgroundColor = "red";
+                msg++;
+            }
+            if (msg == 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        function ResetColor(id) {
+            document.getElementById(id).style.backgroundColor = "white";
+            document.getElementById("error").innerHTML = ""
+        }
+    </script>
 </head>
 <body style="direction:rtl; background-color:aquamarine;">
 
@@ -60,11 +87,11 @@
 
     </div>
 
-    
+
     <div id="main">
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
         <h1 style="text-align:center; display:block; font-size: 50px; text-decoration-line:underline">כניסה</h1>
-        
+        <form onsubmit="return IsValid()" action="OpenPage.html">
             <table align="center">
                 <tr>
                     <td align="center">
@@ -72,7 +99,7 @@
                     </td>
 
                     <td align="center">
-                        <input type="text" id="username" name="username" />
+                        <input type="text" id="username" name="username" onclick="ResetColor(this.id); closeNav()" />
                     </td>
                 </tr>
                 <tr>
@@ -81,40 +108,38 @@
                     </td>
 
                     <td align="center">
-                        <input type="password" id="password" name="password" ”>
+                        <input type="password" id="password" name="password" onclick="ResetColor(this.id); closeNav()" >
                     </td>
                 </tr>
                 <tr>
                     <td align="center">
-                        <form action="Register.html">
-                            <input style="margin:0px auto; display:block" type="submit" value="הרשם" />
-                        </form>
+                        <a href="Register.html">
+                            <p>אין לי חשבון</p>
+                        </a>
                     </td>
+                    <td>
+                        <input style="margin:0px auto; display:block" type="submit" value="כנס לחשבון" />
 
-                    <td align="center">
-                        <form action="OpenPage.html">
-                            <input style="margin:0px auto; display:block" type="submit" value="כנס לחשבון" />
-                        </form>
                     </td>
                 </tr>
-
             </table>
-            
-      
+            <div class="error" style="text-align:center" id="error"></div>
+        </form>
+
     </div>
 
     <script>
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
             document.getElementById("main").style.marginRight = "250px";
-            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";            
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
         }
 
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
             document.getElementById("main").style.marginRight = "0";
             document.body.style.backgroundColor = "aquamarine";
-           
+
         }
     </script>
 

@@ -59,6 +59,11 @@
                 document.getElementById("username").style.backgroundColor = "red";
                 msg++;
             }
+            else if (document.getElementById("username").value.length < 2 || document.getElementById("username").value.length > 8) {
+                document.getElementById("error").innerHTML += " השם הפרטי צריך להיות בין 2 ל-8 תווים</br>";
+                document.getElementById("username").style.backgroundColor = "red";
+                msg++;
+            }
             if (document.getElementById("password").value == "") {
                 document.getElementById("error").innerHTML += " יש להכניס את הסיסמא</br>";
                 document.getElementById("password").style.backgroundColor = "red";

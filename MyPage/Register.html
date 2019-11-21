@@ -141,6 +141,10 @@
                 document.getElementById("phone").style.backgroundColor = "red";
                 msg++;
             }
+            if (document.getElementById("checkbox").checked == false) {
+                document.getElementById("error").innerHTML += "יש להסכים לתנאי השימוש</br>";
+                msg++;
+            }
             if (msg == 0) {
                 return true;
             }
@@ -246,6 +250,16 @@
 
                     <td align="center">
                         <input type="number" id="phone" name="phone" onclick="ResetColor(this.id); closeNav()">
+                    </td>
+                </tr>
+                <tr>   
+                    <td align="left">
+                        
+                    </td>
+                    <td align="center">
+                        אני מסכים 
+                        <a href="#" onClick="MyWindow=window.open('Terms & Conditions.html','MyWindow','width=450,height=300');">לתנאי השימוש</a>
+                        <input type="checkbox" id="checkbox" name="checkbox" onclick="closeNav(); MyWindow.close()">
                     </td>
                 </tr>
                 <tr>

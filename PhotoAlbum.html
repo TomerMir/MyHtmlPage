@@ -48,30 +48,55 @@
             padding: 16px;
         }
     </style>
+    <script type="text/javascript">
+
+        var current = 1;
+        var first = 1;
+        var last = 3;
+
+        function NextPhoto() {
+            var Photo = document.getElementById("Photo");
+            if (current < last) {
+                current++;
+                Photo.src = "Resources/photo" +current+ ".jpg"
+                if (current == last) {
+                    document.getElementById("nextPhotoId").disabled = "disabled";
+                }
+            }
+            document.getElementById("prevPhotoId").disabled = "none";
+        }
+        function PrevPhoto() {
+            var Photo = document.getElementById("Photo");
+            if (current > first) {
+                current--;
+                Photo.src = "Resources/photo" +current+ ".jpg"
+                if (current == first) {
+                    document.getElementById("prevPhotoId").disabled = "disabled";
+                }
+            }
+            document.getElementById("nextPhotoId").disabled = "none";
+        }
+    </script>
 </head>
 <body style="direction:rtl; background-color:aquamarine;">
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="OpenPage.html">קצת עלי</a>
+        <a href="Page2.html">הנושא שלי</a>
         <a href="Page3.html">טבלה על הנושא</a>
         <a href="LoginPage.html">כניסה</a>
     </div>
 
 
-    <div id="main">
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
-        <h1 style="text-align:center; display:block; font-size: 50px; text-decoration-line:underline">הנושא שלי</h1>
-        <h2 style="font-size:26px">הנושא שבחרתי להסביר עליו הוא ריצה</h2>
-        <p style="font-size:22px">בחרתי דווקא בריצה בגלל שאני מאוד אוהב לרוץ</p>
-        <p style="font-size:22px">התחלתי לרוץ לפני שנתיים, בגיל 13 </p>
-        <p style="font-size:22px">היום, אני משתתף בקבוצת ריצה </p>
-        <p style="font-size:22px">ענף הריצה התחרותית קיים כבר משנת 700 לפנה"ס </p>
-        <p style="font-size:22px">הענף מתחלק לשני תחומים עיקריים: ריצות ארוכות וריצות קצרות</p>
-        <p style="font-size:22px">הענף מתחלק לשלושה תחומים עיקריים: ריצות ארוכות ריצות קצרות וריצות בינוניות</p>
-        <p style="font-size:22px">דוגמות לריצות קצרות: ריצות 100 מטרים, 60 מטרים, 200 מטרים ו-400 מטרים</p>
-        <p style="font-size:22px">דוגמות לריצות בינוניות: ריצות 800 מטרים, 1500 מטרים ו-3000 מטרים</p>
-        <p style="font-size:22px">דוגמות לריצות ארוכות: ריצות 5000 מטרים ומעלה</p>
+    <div style="text-align:center" id="main">
+        <span style="font-size:30px;cursor:pointer; text-align:right; display:block" onclick="openNav()">&#9776; </span>
+        <h1 style="text-align:center; display:block; font-size: 50px; text-decoration-line:underline">אלבום תמונות</h1>
+        <a style="text-align:center" id="prevPhotoId" href="javascript:PrevPhoto()">הקודם</a>
+            <a id="nextPhotoId" href="javascript:NextPhoto()">הבא</a>
+            <br />
+            <br />
+            <img id="Photo" src="Resources/photo1.jpg" alt="" style="width:50%"/>
     </div>
 
     <script>

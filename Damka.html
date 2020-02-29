@@ -1,0 +1,480 @@
+<html>
+
+<head>
+    <style>
+  
+        .damkaboard {
+            width: 640px;
+            height: 640px;
+            margin: 20px;
+            border: 25px solid #583131;
+            margin: 0 auto;
+        }
+
+        .black {
+            float: left;
+            width: 80px;
+            height: 80px;
+            background-color: #999;
+            font-size: 50px;
+            line-height: 90px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .white {
+            float: left;
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            font-size: 50px;
+            line-height: 90px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .topcorner {
+            position: absolute;
+            top: 25;
+            right: 25;
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+            /*עיצוב הגופן*/
+        }
+
+
+        .sidenav {
+            /*עיצוב התפריט הנפתח*/
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            /*עיצוב מה שיהיה בתוך התפריט*/
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            /*אנימציה כאשר העכבר עומד על אחד מהקישורים*/
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            /*סטייל של האיקס*/
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            /*מה שקורה לכל שאר העמוד בעת פתיחת התפריט*/
+            padding: 16px;
+        }
+    </style>
+    <script>
+        class whatsInEnum {
+            static Nothing = "nothing";
+            static Black = "black";
+            static White = "white";
+            static BlackMalca = "blackMalca";
+            static WhiteMalca = "whiteMalca";
+        }
+        class colorEnum {
+            static Black = "black";
+            static White = "white";
+        }
+        class Place {
+            static color;
+            static whatsIn;
+            static id;
+            static isGreen;
+            constructor(id) {
+                this.id = id;
+                this.color = colorEnum.White;
+                this.isGreen = false;
+            }
+        }
+        var placesArr = new Array(8);
+        for (let i = 0; i < 8; i++) {
+            placesArr[i] = new Array(8);
+        }
+        var greens = new Array();
+        var lastClicked;
+        var turn = true;
+        function CreateBoard() {
+            var board = document.createElement("div");
+            board.id = "board";
+            board.className = "damkaboard";
+            for (let i = 0; i < 8; i++) {
+                for (let k = 0; k < 8; k++) {
+                    var div = document.createElement("div");
+                    div.id = i.toString() + k.toString();
+                    var tmpPlace = new Place(div.id);
+                    if (i % 2 == 0) {
+                        if (k % 2 == 0) {
+                            div.className = "white";
+                        }
+                        else {
+                            div.className = "black";
+                            tmpPlace.color = whatsInEnum.Black;
+                        }
+                    }
+                    else {
+                        if (k % 2 != 0) {
+                            div.className = "white";
+                        }
+                        else {
+                            div.className = "black";
+                            tmpPlace.color = whatsInEnum.Black;
+                        }
+                    }
+                    if (i >= 0 && i < 3 && div.className == "black") {
+                        div.innerHTML = "&#9899;";
+                        tmpPlace.whatsIn = whatsInEnum.Black;
+                    }
+                    else if (i >= 5 && i < 8 && div.className == "black") {
+                        div.innerHTML = "&#9898;";
+                        tmpPlace.whatsIn = whatsInEnum.White;
+                    }
+                    else {
+                        tmpPlace.whatsIn = whatsInEnum.Nothing;
+                    }
+
+                    placesArr[i][k] = tmpPlace;
+                    board.append(div);
+                }
+            }
+            document.getElementById("main").append(board);
+        }
+
+        function GetPosibleMoves(div) {
+
+            var possibleArr = new Array();
+            var x = parseInt(div.id) % 10;
+            var y = (parseInt(div.id) - x) / 10;
+            var clickedPlace = placesArr[y][x];
+
+            if (clickedPlace.whatsIn == whatsInEnum.Nothing) {
+                return possibleArr;
+            }
+            var counter = 0;
+
+            if (clickedPlace.whatsIn == whatsInEnum.WhiteMalca || clickedPlace.whatsIn == whatsInEnum.WhiteMalca) {
+                var tmpX;
+                var tmpY;
+
+                for (let i = 1; i <= 9; i++) {
+                    tmpX = x + i;
+                    tmpY = y + i;
+                    if (tmpX >= 0 && tmpX < 8 && tmpY >= 0 && tmpY < 8) {
+                        if (placesArr[tmpY][tmpX].whatsIn == whatsInEnum.Nothing) {
+                            possibleArr[counter] = placesArr[tmpY][tmpX];
+                            counter++;
+                        }
+                        else if ((turn == true && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.White && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.WhiteMalca) || (turn == false && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.Black && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.BlackMalca)) {
+                            if (tmpX + 1 >= 0 && tmpX + 1 < 8 && tmpY + 1 >= 0 && tmpY + 1 < 8) {
+                                if (placesArr[tmpY + 1][tmpX + 1].whatsIn == whatsInEnum.Nothing) {
+                                    possibleArr[counter] = placesArr[tmpY + 1][tmpX + 1];
+                                    counter++;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    else break;
+                }
+                for (let i = 1; i <= 9; i++) {
+                    tmpX = x - i;
+                    tmpY = y + i;
+                    if (tmpX >= 0 && tmpX < 8 && tmpY >= 0 && tmpY < 8) {
+                        if (placesArr[tmpY][tmpX].whatsIn == whatsInEnum.Nothing) {
+                            possibleArr[counter] = placesArr[tmpY][tmpX];
+                            counter++;
+                        }
+                        else if ((turn == true && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.White && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.WhiteMalca) || (turn == false && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.Black && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.BlackMalca)) {
+                            if (tmpX - 1 >= 0 && tmpX - 1 < 8 && tmpY + 1 >= 0 && tmpY + 1 < 8) {
+                                if (placesArr[tmpY + 1][tmpX - 1].whatsIn == whatsInEnum.Nothing) {
+                                    possibleArr[counter] = placesArr[tmpY + 1][tmpX - 1];
+                                    counter++;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    else break;
+                }
+                for (let i = 1; i <= 9; i++) {
+                    tmpX = x - i;
+                    tmpY = y - i;
+                    if (tmpX >= 0 && tmpX < 8 && tmpY >= 0 && tmpY < 8) {
+                        if (placesArr[tmpY][tmpX].whatsIn == whatsInEnum.Nothing) {
+                            possibleArr[counter] = placesArr[tmpY][tmpX];
+                            counter++;
+                        }
+                        else if ((turn == true && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.White && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.WhiteMalca) || (turn == false && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.Black && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.BlackMalca)) {
+                            if (tmpX - 1 >= 0 && tmpX - 1 < 8 && tmpY - 1 >= 0 && tmpY - 1 < 8) {
+                                if (placesArr[tmpY - 1][tmpX - 1].whatsIn == whatsInEnum.Nothing) {
+                                    possibleArr[counter] = placesArr[tmpY - 1][tmpX - 1];
+                                    counter++;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    else break;
+                }
+                for (let i = 1; i <= 9; i++) {
+                    tmpX = x + i;
+                    tmpY = y - i;
+                    if (tmpX >= 0 && tmpX < 8 && tmpY >= 0 && tmpY < 8) {
+                        if (placesArr[tmpY][tmpX].whatsIn == whatsInEnum.Nothing) {
+                            possibleArr[counter] = placesArr[tmpY][tmpX];
+                            counter++;
+                        }
+                        else if ((turn == true && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.White && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.WhiteMalca) || (turn == false && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.Black && placesArr[tmpY][tmpX].whatsIn != whatsInEnum.BlackMalca)) {
+                            if (tmpX + 1 >= 0 && tmpX + 1 < 8 && tmpY - 1 >= 0 && tmpY - 1 < 8) {
+                                if (placesArr[tmpY - 1][tmpX + 1].whatsIn == whatsInEnum.Nothing) {
+                                    possibleArr[counter] = placesArr[tmpY - 1][tmpX + 1];
+                                    counter++;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    else break;
+                }
+                return possibleArr;
+            }
+            var urx = x + 1;
+            var ury = y - 1;
+            var ulx = x - 1;
+            var uly = y - 1;
+            var drx = x + 1;
+            var dry = y + 1;
+            var dlx = x - 1;
+            var dly = y + 1;
+
+            if (turn) {
+                if (urx >= 0 && urx < 8 && ury >= 0 && ury < 8) {
+                    if (placesArr[ury][urx].whatsIn == whatsInEnum.Nothing) {
+                        possibleArr[counter] = placesArr[ury][urx];
+                        counter++;
+                    }
+                    else if ((turn == true && placesArr[ury][urx].whatsIn != whatsInEnum.White && placesArr[ury][urx].whatsIn != whatsInEnum.WhiteMalca) || (turn == false && placesArr[ury][urx].whatsIn != whatsInEnum.Black && placesArr[ury][urx].whatsIn != whatsInEnum.BlackMalca)) {
+                        if (urx + 1 >= 0 && urx + 1 < 8 && ury - 1 >= 0 && ury - 1 < 8) {
+                            if (placesArr[ury - 1][urx + 1].whatsIn == whatsInEnum.Nothing) {
+                                possibleArr[counter] = placesArr[ury - 1][urx + 1];
+                                counter++;
+                            }
+                        }
+                    }
+                }
+
+                if (ulx >= 0 && ulx < 8 && uly >= 0 && uly < 8) {
+                    if (placesArr[uly][ulx].whatsIn == whatsInEnum.Nothing) {
+                        possibleArr[counter] = placesArr[uly][ulx];
+                        counter++;
+                    }
+                    else if ((turn == true && placesArr[uly][ulx].whatsIn != whatsInEnum.White && placesArr[uly][ulx].whatsIn != whatsInEnum.WhiteMalca) || (turn == false && placesArr[uly][ulx].whatsIn != whatsInEnum.Black && placesArr[uly][ulx].whatsIn != whatsInEnum.BlackMalca)) {
+                        if (ulx - 1 >= 0 && ulx - 1 < 8 && uly - 1 >= 0 && uly - 1 < 8) {
+                            if (placesArr[uly - 1][ulx - 1].whatsIn == whatsInEnum.Nothing) {
+                                possibleArr[counter] = placesArr[uly - 1][ulx - 1];
+                                counter++;
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                if (drx >= 0 && drx < 8 && dry >= 0 && dry < 8) {
+                    if (placesArr[dry][drx].whatsIn == whatsInEnum.Nothing) {
+                        possibleArr[counter] = placesArr[dry][drx];
+                        counter++;
+                    }
+                    else if ((turn == true && placesArr[dry][drx].whatsIn != whatsInEnum.White && placesArr[dry][drx].whatsIn != whatsInEnum.WhiteMalca) || (turn == false && placesArr[dry][drx].whatsIn != whatsInEnum.Black && placesArr[dry][drx].whatsIn != whatsInEnum.BlackMalca)) {
+                        if (drx + 1 >= 0 && drx + 1 < 8 && dry + 1 >= 0 && dry + 1 < 8) {
+                            if (placesArr[dry + 1][drx + 1].whatsIn == whatsInEnum.Nothing) {
+                                possibleArr[counter] = placesArr[dry + 1][drx + 1];
+                                counter++;
+                            }
+                        }
+                    }
+                }
+                if (dlx >= 0 && dlx < 8 && dly >= 0 && dly < 8) {
+                    if (placesArr[dly][dlx].whatsIn == whatsInEnum.Nothing) {
+                        possibleArr[counter] = placesArr[dly][dlx];
+                        counter++;
+                    }
+                    else if ((turn == true && placesArr[dly][dlx].whatsIn != whatsInEnum.White && placesArr[dly][dlx].whatsIn != whatsInEnum.WhiteMalca) || (turn == false && placesArr[dly][dlx].whatsIn != whatsInEnum.Black && placesArr[dly][dlx].whatsIn != whatsInEnum.BlackMalca)) {
+                        if (dlx - 1 >= 0 && dlx - 1 < 8 && dly + 1 >= 0 && dly + 1 < 8) {
+                            if (placesArr[dly + 1][dlx - 1].whatsIn == whatsInEnum.Nothing) {
+                                possibleArr[counter] = placesArr[dly + 1][dlx - 1];
+                                counter++;
+                            }
+                        }
+                    }
+                }
+            }
+            return possibleArr;
+        }
+        function Run() {
+            CreateBoard();
+            lastClicked = document.getElementById("45");
+            var board = document.getElementById("board");
+            var event = board.addEventListener("click", ShowMoves);
+        }
+        var blackEats = 0;
+        var whiteEats = 0;
+        function ShowMoves(e) {
+            var clicked = e.target;
+            if (clicked.id == "board") return;
+            var id = clicked.id;
+            var x = parseInt(id) % 10;
+            var y = (parseInt(id) - x) / 10;
+            var place = placesArr[y][x];
+            if ((place.whatsIn == whatsInEnum.White || place.whatsIn == whatsInEnum.WhiteMalca) && turn == false) {
+                alert("Its not you turn!");
+                return;
+            }
+            if ((place.whatsIn == whatsInEnum.Black || place.whatsIn == whatsInEnum.BlackMalca) && turn == true) {
+                alert("Its not you turn!");
+                return;
+            }
+            if (place.isGreen) {
+                var lastId = lastClicked.id;
+                var lastX = parseInt(lastId) % 10;
+                var lastY = (parseInt(lastId) - lastX) / 10;
+                var sum = y - lastY;
+                if (sum > 1 || sum < -1) {
+
+                    var eatX;
+                    var eatY;
+                    if (lastX > x) {
+                        eatX = x + 1;
+                    }
+                    else {
+                        eatX = x - 1;
+                    }
+                    if (lastY > y) {
+                        eatY = y + 1;
+                    }
+                    else {
+                        eatY = y - 1;
+                    }
+
+                    if (placesArr[eatY][eatX].whatsIn == whatsInEnum.White || placesArr[eatY][eatX].whatsIn == whatsInEnum.WhiteMalca) {
+                        whiteEats++;
+                    }
+                    else {
+                        blackEats++;
+                    }
+                    document.getElementById(eatY.toString() + eatX.toString()).innerHTML = "";
+                    placesArr[eatY][eatX].whatsIn = whatsInEnum.Nothing;
+                }
+                if (turn == true && y == 0) {
+                    placesArr[y][x].whatsIn = whatsInEnum.WhiteMalca;
+                    clicked.innerHTML = "&#9813;";
+                }
+                else if (turn == false && y == 7) {
+                    placesArr[y][x].whatsIn = whatsInEnum.BlackMalca;
+                    clicked.innerHTML = "&#9818;";
+                }
+                else {
+                    placesArr[y][x].whatsIn = placesArr[lastY][lastX].whatsIn;
+                    clicked.innerHTML = lastClicked.innerHTML;
+                }
+                placesArr[lastY][lastX].whatsIn = whatsInEnum.Nothing;
+                document.getElementById(lastClicked.id).innerHTML = "";
+                document.getElementById(lastClicked.id).style.backgroundColor = "#999";
+                turn = !turn;
+                ClearGreens();
+                if (whiteEats == 12) {
+                    alert("Black player is the winner");
+                }
+                if (blackEats == 12) {
+                    alert("White player is the winner");
+                }
+                return;
+            }
+            var posibleArr = GetPosibleMoves(clicked);
+            ClearGreens();
+            greens = posibleArr;
+            lastClicked.style.backgroundColor = "#999";
+            if (posibleArr.length == 0) {
+                return;
+            }
+            document.getElementById(lastClicked.id).style.backgroundColor = "#999";
+            clicked.style.backgroundColor = "rgb(117, 107, 107)";
+            for (let index = 0; index < posibleArr.length; index++) {
+                document.getElementById(posibleArr[index].id).style.backgroundColor = "green";
+                var x1 = parseInt(posibleArr[index].id) % 10;
+                var y1 = (parseInt(posibleArr[index].id) - x1) / 10;
+                placesArr[y1][x1].isGreen = true;
+            }
+            lastClicked = clicked;
+        }
+        function ClearGreens() {
+            for (let i = 0; i < greens.length; i++) {
+                document.getElementById(greens[i].id).style.backgroundColor = "#999";
+                var x = parseInt(greens[i].id) % 10;
+                var y = (parseInt(greens[i].id) - x) / 10;
+                placesArr[y][x].isGreen = false;
+            }
+        }
+    </script>
+</head>
+
+<body style="background-color: aquamarine;">
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="OpenPage.aspx">קצת עלי</a>
+        <a href="Page2.html">הנושא שבחרתי ומדוע</a>
+        <a href="Page3.html">טבלה על הנושא</a>
+        <a href="PhotoAlbum.html">אלבום תמונות</a>
+        <a href="LoginPage.aspx">כניסה לאתר</a>
+    </div>
+
+    <div id="main">
+        <span class="topcorner" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+        <h1 style="text-align:center; display:block; font-size: 50px; text-decoration-line:underline">דמקה</h1>
+        <script>Run();</script>
+        <p style="font-size:22px; text-align: right;">יותר לעומק, החלטתי לתכנת דמקה javascript בגלל שרציתי ללמוד </p>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginRight = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginRight = "0";
+            document.body.style.backgroundColor = "aquamarine";
+
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,9 +1,9 @@
-<%@ Page Language="c#" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="OpenPage.aspx.cs" Inherits="OpenPage" %>
 
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta charset="utf-8" />
     <title></title>    
     <style>
 
@@ -71,7 +71,8 @@
         <a href="Page2.html">הנושא שבחרתי ומדוע</a>
         <a href="Page3.html">טבלה על הנושא</a>
         <a href="PhotoAlbum.html">אלבום תמונות</a>
-        <a href="LoginPage.html">כניסה</a>
+        <a href="Damka.html">דמקה</a>
+        <a href="LoginPage.aspx">כניסה</a>
     </div>
 
 

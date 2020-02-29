@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LoginPage.aspx.cs" Inherits="LoginPage"%>
 
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title></title>
     <style>
-
-
         body {
             font-family: "Lato", sans-serif; /*עיצוב הגופן*/
         }
@@ -80,60 +81,6 @@
             document.getElementById(id).style.backgroundColor = "white";
             document.getElementById("error").innerHTML = ""
         }
-    </script>
-</head>
-<body style="direction:rtl; background-color:aquamarine;">
-
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="OpenPage.html">קצת עלי</a>
-        <a href="Page2.html">הנושא שבחרתי ומדוע</a>
-        <a href="Page3.html">טבלה על הנושא</a>
-        <a href="PhotoAlbum.html">אלבום תמונות</a>
-    </div>
-
-
-    <div id="main">
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
-        <h1 style="text-align:center; display:block; font-size: 50px; text-decoration-line:underline">כניסה</h1>
-        <form onsubmit="return IsValid()" action="OpenPage.html">
-            <table align="center">
-                <tr>
-                    <td align="center">
-                        שם משתמש
-                    </td>
-
-                    <td align="center">
-                        <input type="text" id="username" name="username" onclick="ResetColor(this.id); closeNav()" />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        סיסמא
-                    </td>
-
-                    <td align="center">
-                        <input type="password" id="password" name="password" onclick="ResetColor(this.id); closeNav()" >
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <a href="Register.html">
-                            <p>אין לי חשבון</p>
-                        </a>
-                    </td>
-                    <td>
-                        <input style="margin:0px auto; display:block" type="submit" value="כנס לחשבון" />
-
-                    </td>
-                </tr>
-            </table>
-            <div class="error" style="text-align:center" id="error"></div>
-        </form>
-
-    </div>
-
-    <script>
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
             document.getElementById("main").style.marginRight = "250px";
@@ -147,6 +94,51 @@
 
         }
     </script>
+</head>
+<body style="direction: rtl; background-color: aquamarine;">
+    <form id="form1" runat="server" onsubmit="return IsValid()">
+        <div id="main">
+            <span style="font-size: 30px; cursor: pointer" onclick="openNav()">&#9776; </span>
+            <h1 style="text-align: center; display: block; font-size: 50px; text-decoration-line: underline">כניסה</h1>
+            <table align="center">
+                <tr>
+                    <td align="center">שם משתמש
+                    </td>
+
+                    <td align="center">
+                        <input type="text" id="username" name="username" onclick="ResetColor(this.id); closeNav()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">סיסמא
+                    </td>
+
+                    <td align="center">
+                        <input type="password" id="password" name="password" onclick="ResetColor(this.id); closeNav()">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <a href="Register.aspx">
+                            <p>אין לי חשבון</p>
+                        </a>
+                    </td>
+                    <td>
+                        <asp:Button ID="login" runat="server" Text="כנס" OnClick="singin" />
+                    </td>
+                </tr>
+            </table>
+            <div class="error" style="text-align: center" id="error"></div>
+        </div>
+    </form>ד
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="OpenPage.aspx">קצת עלי</a>
+        <a href="Page2.html">הנושא שבחרתי ומדוע</a>
+        <a href="Page3.html">טבלה על הנושא</a>
+        <a href="PhotoAlbum.html">אלבום תמונות</a>
+        <a href="Damka.html">דמקה</a>
+    </div>
 
 </body>
-</html> 
+</html>

@@ -1,7 +1,10 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="Register" %>
 
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
     <style>
         body {
             font-family: "Lato", sans-serif; /*עיצוב הגופן*/
@@ -130,7 +133,7 @@
                 if ((CharCount == 0) || (NumCount == 0)) {
                     document.getElementById("error").innerHTML += "סיסמא חייבת להכיל גם ספרות וגם אותיות</br>";
                     document.getElementById("password").style.backgroundColor = "red";
-                    msg++; 
+                    msg++;
                 }
             }
             if (document.getElementById("confimpassword").value == "") {
@@ -163,8 +166,7 @@
                 document.getElementById("phone").style.backgroundColor = "red";
                 msg++;
             }
-            else if (isNaN(document.getElementById("phone").value) == true)
-            {
+            else if (isNaN(document.getElementById("phone").value) == true) {
                 document.getElementById("error").innerHTML += "הטלפון חייב להכיל מספרים בלבד</br>";
                 document.getElementById("phone").style.backgroundColor = "red";
                 msg++;
@@ -185,133 +187,6 @@
                 return false;
             }
         }
-    </script>
-</head>
-<body style="direction:rtl; background-color:aquamarine;">
-
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="OpenPage.html">קצת עלי</a>
-        <a href="Page2.html">הנושא שבחרתי ומדוע</a>
-        <a href="Page3.html">טבלה על הנושא</a>
-        <a href="PhotoAlbum.html">אלבום תמונות</a>
-        <a href="LoginPage.html">כניסה לאתר</a>
-    </div>
-
-
-    <div id="main">
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
-        <h1 style="text-align:center; display:block; font-size: 50px; text-decoration-line:underline">הרשמה</h1>
-        <form style="text-align:center" onsubmit="return IsValid()" action="LoginPage.html">
-            <table align="center">
-                <tr>
-                    <td align="center">
-                        שם פרטי
-                    </td>
-
-                    <td align="center">
-                        <input type="text" id="firstname" name="firstname" onclick="ResetColor(this.id); closeNav()" />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        שם משפחה
-                    </td>
-
-                    <td align="center">
-                        <input type="text" id="lastname" name="lastname" onclick="ResetColor(this.id); closeNav()" />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        תאריך לידה
-                    </td>
-
-                    <td align="center">
-                        <input type="date" id="birth" name="birth" onclick="ResetColor(this.id); closeNav()" />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        מגדר
-                    </td>
-
-                    <td align="center">
-                        <input type="radio" name="gender" id="male" value="male" onclick="closeNav()"> זכר
-                        <input type="radio" name="gender" id="female" value="female" onclick="closeNav()"> נקבה
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        שם משתמש
-                    </td>
-
-                    <td align="center">
-                        <input type="text" id="username" name="username" onclick="ResetColor(this.id); closeNav()" />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        סיסמא
-                    </td>
-
-                    <td align="center">
-                        <input type="password" id="password" name="password" onclick="ResetColor(this.id); closeNav()">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        אשר סיסמא
-                    </td>
-
-                    <td align="center">
-                        <input type="password" id="confimpassword" name="confirmpassword" onclick="ResetColor(this.id); closeNav()">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        מייל
-                    </td>
-
-                    <td align="center">
-                        <input type="text" id="mail" name="mail" onclick="ResetColor(this.id); closeNav()">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        מספר טלפון
-                    </td>
-
-                    <td align="center">
-                        <input type="text" id="phone" name="phone" onclick="ResetColor(this.id); closeNav()">
-                    </td>
-                </tr>
-                <tr>   
-                    <td align="left">
-                        
-                    </td>
-                    <td align="center">
-                        אני מסכים 
-                        <a href="#" onClick="MyWindow=window.open('Terms & Conditions.html','MyWindow','width=450,height=300');">לתנאי השימוש</a>
-                        <input type="checkbox" id="checkbox" name="checkbox" onclick="closeNav(); MyWindow.close()">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <input type="submit" value="הרשם" />
-                        <input type="reset" value="אפס" onclick="Reset()" />
-                    </td>
-                </tr>
-            </table>
-
-            <div class="error" style="text-align:center" id="error"></div>
-        </form>
-
-    </div>
-
-    <script>
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
             document.getElementById("main").style.marginRight = "250px";
@@ -324,7 +199,124 @@
             document.body.style.backgroundColor = "aquamarine";
         }
     </script>
+</head>
+<body style="direction: rtl; background-color: aquamarine;">
 
+    <form id="form1" runat="server" onsubmit="return IsValid()">
 
+        <div id="main">
+            <span style="font-size: 30px; cursor: pointer" onclick="openNav()">&#9776; </span>
+            <h1 style="text-align: center; display: block; font-size: 50px; text-decoration-line: underline">הרשמה</h1>
+            <table align="center">
+                <tr>
+                    <td align="center">שם פרטי
+                        </td>
+
+                    <td align="center">
+                        <input type="text" id="firstname" name="firstname" onclick="ResetColor(this.id); closeNav()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">שם משפחה
+                        </td>
+
+                    <td align="center">
+                        <input type="text" id="lastname" name="lastname" onclick="ResetColor(this.id); closeNav()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">תאריך לידה
+                        </td>
+
+                    <td align="center">
+                        <input type="date" id="birth" name="birth" onclick="ResetColor(this.id); closeNav()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">מגדר
+                        </td>
+
+                    <td align="center">
+                        <input type="radio" name="gender" id="male" value="male" onclick="closeNav()">
+                        זכר
+                           
+                       
+
+                        <input type="radio" name="gender" id="female" value="female" onclick="closeNav()">
+                        נקבה
+                        </td>
+                </tr>
+                <tr>
+                    <td align="center">שם משתמש
+                        </td>
+
+                    <td align="center">
+                        <input type="text" id="username" name="username" onclick="ResetColor(this.id); closeNav()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">סיסמא
+                        </td>
+
+                    <td align="center">
+                        <input type="password" id="password" name="password" onclick="ResetColor(this.id); closeNav()">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">אשר סיסמא
+                        </td>
+
+                    <td align="center">
+                        <input type="password" id="confimpassword" name="confirmpassword" onclick="ResetColor(this.id); closeNav()">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">מייל
+                        </td>
+
+                    <td align="center">
+                        <input type="text" id="mail" name="mail" onclick="ResetColor(this.id); closeNav()">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">מספר טלפון
+                        </td>
+
+                    <td align="center">
+                        <input type="text" id="phone" name="phone" onclick="ResetColor(this.id); closeNav()">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="center">אני מסכים 
+                           
+                       
+
+                        <a href="#" onclick="MyWindow=window.open('Terms & Conditions.html','MyWindow','width=450,height=300');">לתנאי השימוש</a>
+                        <input type="checkbox" id="checkbox" name="checkbox" onclick="closeNav(); MyWindow.close()">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <asp:Button ID="regButton" runat="server" Text="הרשם" OnClick="register" />
+                        <input type="reset" value="אפס" onclick="Reset()" />
+                    </td>
+                </tr>
+            </table>
+
+            <div class="error" style="text-align: center" id="error"></div>
+        </div>
+    </form>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="OpenPage.aspx">קצת עלי</a>
+        <a href="Page2.html">הנושא שבחרתי ומדוע</a>
+        <a href="Page3.html">טבלה על הנושא</a>
+        <a href="PhotoAlbum.html">אלבום תמונות</a>
+        <a href="Damka.html">דמקה</a>
+        <a href="LoginPage.aspx">כניסה לאתר</a>
+    </div>
 </body>
 </html>

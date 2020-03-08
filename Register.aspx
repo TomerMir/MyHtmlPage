@@ -305,7 +305,7 @@
                 </tr>
             </table>
 
-            <div class="error" style="text-align: center" id="error"></div>
+            <div runat="server" class="error" style="text-align: center" id="error"></div>
         </div>
     </form>
 

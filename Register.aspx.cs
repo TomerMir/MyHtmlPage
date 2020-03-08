@@ -26,11 +26,11 @@ public partial class Register : System.Web.UI.Page
         string checkQuery = "select * from [tbl_users] where username ='" + username + "';";
         if (MyAdoHelperAccess.IsExist(db, checkQuery))
         {
-            Response.Write("Usernmae already exists");
+            error.InnerHtml = "שם המשתמש תפוס";
         }
         else
         {
-            string registerQuery = "insert into tbl_users (username,Fname,Lname,password,email,bday,gender,phoneNum)  values ('" + username + "','" + firstname + "','" + lastname + "','" + password + "','" + mail + "',#" + birth + "#,'" + gender + "','" + phone + "');";
+            string registerQuery = "INSERT INTO  [tbl_users] ([username],[Fname],[Lname],[password],[email],[bday],[gender],[phoneNum]) VALUES ('" + username + "','" + firstname + "','" + lastname + "','" + password + "','" + mail + "'," + '#' + birth + "#," + "'" + gender + "','" + phone + "')";
 
             MyAdoHelperAccess.DoQuery(db, registerQuery);
             Response.Redirect("LoginPage.aspx");

@@ -28,7 +28,7 @@ public partial class LoginPage : System.Web.UI.Page
         }
         else
         {
-            Response.Write("שם משתמש או סיסמא שגויים");
+            error.InnerHtml = "שם משתמש או סיסמא שגויים";
         }
 
     }

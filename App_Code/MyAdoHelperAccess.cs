@@ -157,7 +157,7 @@ public class MyAdoHelperAccess
 
         foreach (DataRow row in dt.Rows)
         {
-            if (row["uname"].ToString() != "admin") //לא למחוק מנהל
+            if (row["username"].ToString() != "admin") //לא למחוק מנהל
             {
                 printStr += "<tr>";
                 foreach (object myItemArray in row.ItemArray)
@@ -165,10 +165,7 @@ public class MyAdoHelperAccess
 
                     printStr += "<td>" + myItemArray.ToString() + "</td>";
                 }
-
-                printStr += "<td><form method='post' onsubmit='return confirm(\"delete " + row["id"] + " ?\")' action='managerDelete.aspx'>";
-                printStr += "<input type='hidden' id='hdnId' name='hdnId' value='" + row["id"] + "'/>";
-                printStr += "<input type='submit' value='delete' /></td></form>";
+                printStr += "<td><button onclick='postToServer(" + row["id"].ToString() + ")'>delete</></td>";
 
                 printStr += "</tr>";
             }

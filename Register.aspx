@@ -109,8 +109,8 @@
                 document.getElementById("username").style.backgroundColor = "red";
                 msg++;
             }
-            else if (document.getElementById("username").value.length < 2 || document.getElementById("username").value.length > 8) {
-                document.getElementById("error").innerHTML += " השם משתמש צריך להיות בין 2 ל-8 תווים</br>";
+            else if (document.getElementById("username").value.length < 2 || document.getElementById("username").value.length > 15) {
+                document.getElementById("error").innerHTML += " השם משתמש צריך להיות בין 2 ל-15 תווים</br>";
                 document.getElementById("username").style.backgroundColor = "red";
                 msg++;
             }

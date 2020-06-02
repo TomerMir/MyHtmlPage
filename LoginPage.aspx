@@ -60,8 +60,8 @@
                 document.getElementById("username").style.backgroundColor = "red";
                 msg++;
             }
-            else if (document.getElementById("username").value.length < 2 || document.getElementById("username").value.length > 8) {
-                document.getElementById("error").innerHTML += " השם הפרטי צריך להיות בין 2 ל-8 תווים</br>";
+            else if (document.getElementById("username").value.length < 2 || document.getElementById("username").value.length > 15) {
+                document.getElementById("error").innerHTML += " השם הפרטי צריך להיות בין 2 ל-15 תווים</br>";
                 document.getElementById("username").style.backgroundColor = "red";
                 msg++;
             }
@@ -130,7 +130,7 @@
             </table>
             <div runat="server" class="error" style="text-align: center" id="error"></div>
         </div>
-    </form>ד
+    </form>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="OpenPage.aspx">קצת עלי</a>

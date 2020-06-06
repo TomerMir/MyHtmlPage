@@ -11,6 +11,10 @@ public partial class LoginPage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if ((string)Session["username"] != null)
+        {
+            username.Text = (string)Session["username"];
+        }
 
     }
     protected void singin(Object sender, EventArgs e)
@@ -30,6 +34,7 @@ public partial class LoginPage : System.Web.UI.Page
 
         if (MyAdoHelperAccess.IsExist(db, query))
         {
+            Session["username"] = user;
             Response.Redirect("OpenPage.aspx");
         }
         else

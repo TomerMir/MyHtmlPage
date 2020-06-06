@@ -61,9 +61,9 @@
             if(Application["Counter"] == null){
                 Application["Counter"] = 0;
             }
-
+            string username = (string)Session["username"];
             Application["Counter"] = (int)Application["Counter"] + 1;
-            Response.Write("You entered the site " + Application["Counter"] + " times");
+            Response.Write("Hello " + username + ", You have entered the site " + Application["Counter"] + " times");
             %>
     </div>
     <div id="mySidenav" class="sidenav">
@@ -72,7 +72,7 @@
         <a href="Page3.html">טבלה על הנושא</a>
         <a href="PhotoAlbum.html">אלבום תמונות</a>
         <a href="Damka.html">דמקה</a>
-        <a href="LoginPage.aspx">כניסה</a>
+        <a href="Logout.aspx">התנתק</a>
     </div>
 
 
